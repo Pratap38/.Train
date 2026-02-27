@@ -1,278 +1,247 @@
-.Train
+# 🚆 .Train  
+## Real-Time Train Tracking & Network Alert System  
 
-Real-Time Train Tracking & Network Alert System
+Full Stack Django Web Application  
 
-Full Stack Django Web Application
+**Version:** 1.0  
+**Status:** Draft  
+**Authors:** Pratap Narayan Choubey & Arushi Goswami  
 
-Version: 1.0
-Status: Draft
-Authors: Pratap Narayan Choubey & Arushi Goswami
+---
 
-📘 System Architecture Document
-📑 Table of Contents
+# 📘 System Architecture Document
 
-Introduction
+---
 
-System Overview
+# 📑 Table of Contents
 
-Architecture Overview
+1. Introduction  
+2. System Overview  
+3. Architecture Overview  
+4. Logical Architecture  
+5. Physical Architecture  
+6. Data Architecture  
+7. Application Architecture  
+8. Network Alert System  
+9. Interface Design  
+10. Security Architecture  
+11. Requirements Traceability  
+12. External API & Live Simulation Architecture  
 
-Logical Architecture
+---
 
-Physical Architecture
+# 1. INTRODUCTION
 
-Data Architecture
-
-Application Architecture
-
-Network Alert System
-
-Interface Design
-
-Security Architecture
-
-Requirements Traceability
-
-External API & Live Simulation Architecture
-
-1. INTRODUCTION
-1.1 Document Overview
+## 1.1 Document Overview
 
 This document presents the complete system architecture of the “.Train” web application.
 
 It provides a detailed description of:
 
-Logical architecture
-
-Physical deployment
-
-Software components
-
-Database design
-
-Integrated network alert system
+- Logical architecture  
+- Physical deployment  
+- Software components  
+- Database design  
+- Integrated network alert system  
 
 It serves as a technical reference for developers, stakeholders, and evaluators.
 
-1.2 Purpose
+---
+
+## 1.2 Purpose
 
 The primary purpose of this application is to:
 
-🚆 Track trains in real-time
+- Track trains in real-time  
+- Display current location & station details  
+- Show ETA and delay status  
+- Alert users before low-network zones  
+- Provide offline access to critical journey data  
 
-📍 Display current location & station details
+---
 
-⏱ Show ETA and delay status
-
-📡 Alert users before low-network zones
-
-💾 Provide offline access to critical journey data
-
-1.3 Scope
+## 1.3 Scope
 
 This document covers:
 
-Django backend architecture
-
-HTML + Tailwind CSS frontend
-
-SQLite database schema
-
-Network alert detection system
-
-Offline caching mechanism
+- Django backend architecture  
+- HTML + Tailwind CSS frontend  
+- SQLite database schema  
+- Network alert detection system  
+- Offline caching mechanism  
 
 Source code implementation is not included.
 
-1.4 Abbreviations & Glossary
-Term	Definition
-MVT	Model-View-Template (Django pattern)
-ORM	Object Relational Mapping
-ETA	Estimated Time of Arrival
-API	Application Programming Interface
-SQLite	Lightweight file-based database
-CRUD	Create, Read, Update, Delete
-2. SYSTEM OVERVIEW
-2.1 System Context
-External Systems
+---
 
-Railway Data API
+## 1.4 Abbreviations & Glossary
 
-Leaflet + OpenStreetMap
+| Term | Definition |
+|------|------------|
+| MVT | Model-View-Template (Django pattern) |
+| ORM | Object Relational Mapping |
+| ETA | Estimated Time of Arrival |
+| API | Application Programming Interface |
+| SQLite | Lightweight file-based database |
+| CRUD | Create, Read, Update, Delete |
 
-Weather API
+---
 
-Internal Components
+# 2. SYSTEM OVERVIEW
 
-Django Backend
+## 2.1 System Context
 
-SQLite Database
+### External Systems
+- Railway Data API  
+- Leaflet + OpenStreetMap  
+- Weather API  
 
-HTML + Tailwind Frontend
+### Internal Components
+- Django Backend  
+- SQLite Database  
+- HTML + Tailwind Frontend  
 
-Users
+### Users
+- Commuters  
+- Travelers  
+- Railway Staff  
 
-Commuters
+### Context Flow
 
-Travelers
+External APIs  
+↓  
+Django Backend  
+↓  
+SQLite Database  
+↓  
+Frontend UI  
+↓  
+Users  
 
-Railway Staff
+---
 
-Context Flow
-External APIs
-      ↓
-   Django Backend
-      ↓
-   SQLite Database
-      ↓
-   Frontend UI
-      ↓
-     Users
-2.2 Design Goals
+## 2.2 Design Goals
 
-Reliability
+- Reliability  
+- Performance (< 2 seconds response)  
+- Usability  
+- Offline Access  
+- Scalability (PostgreSQL migration ready)
 
-Performance (< 2 seconds response)
+---
 
-Usability
+## 2.3 Target Users
 
-Offline Access
+- Daily commuters  
+- Long-distance travelers  
+- Users in poor network regions  
 
-Scalability (PostgreSQL migration ready)
+---
 
-2.3 Target Users
+# 3. ARCHITECTURE OVERVIEW
 
-Daily commuters
+## 3.1 Three-Layer Architecture
 
-Long-distance travelers
+### 1. Client Layer
+- Web Browser  
+- Mobile Browser  
+- Service Worker  
 
-Users in poor network regions
+### 2. Application Layer (Django)
+- urls.py  
+- views.py  
+- models.py  
+- Templates (HTML + Tailwind)
 
-3. ARCHITECTURE OVERVIEW
-3.1 Three-Layer Architecture
-1️⃣ Client Layer
-
-Web Browser
-
-Mobile Browser
-
-Service Worker
-
-2️⃣ Application Layer (Django)
-
-urls.py
-
-views.py
-
-models.py
-
-Templates (HTML + Tailwind)
-
-3️⃣ Database Layer
-
+### 3. Database Layer
 SQLite (db.sqlite3)
 
 Tables:
+- trains  
+- stations  
+- routes  
+- train_status  
+- network_zones  
+- users  
 
-trains
+---
 
-stations
+## 3.2 Technology Stack
 
-routes
+| Layer | Technology | Purpose |
+|--------|------------|----------|
+| Backend | Django 5.x | Web Framework |
+| Backend | Django ORM | DB abstraction |
+| Frontend | HTML5 | Structure |
+| Frontend | Tailwind CSS | Styling |
+| Frontend | JavaScript | Interactivity |
+| Database | SQLite | Data Storage |
+| Maps | Leaflet.js + OSM | Visualization |
+| Offline | Service Workers | Caching |
 
-train_status
+---
 
-network_zones
-
-users
-
-3.2 Technology Stack
-Layer	Technology	Purpose
-Backend	Django 5.x	Web Framework
-Backend	Django ORM	DB abstraction
-Frontend	HTML5	Structure
-Frontend	Tailwind CSS	Styling
-Frontend	JavaScript	Interactivity
-Database	SQLite	Data Storage
-Maps	Leaflet.js + OSM	Visualization
-Offline	Service Workers	Caching
-3.3 Django MVT Pattern
+## 3.3 Django MVT Pattern
 
 Flow:
 
-User → URL Router → View → Model → Database
-                      ↓
-                   Template
-                      ↓
-                     User
+User → URL Router → View → Model → Database  
+                     ↓  
+                 Template  
+                     ↓  
+                    User  
 
 Ensures:
+- Separation of concerns  
+- Maintainability  
+- Scalability  
 
-Separation of concerns
+---
 
-Maintainability
+# 4. LOGICAL ARCHITECTURE
 
-Scalability
+## Applications
 
-4. LOGICAL ARCHITECTURE
-4.1 Applications
-Tracker App
+### Tracker App
 
 Models:
-
-Train
-
-Station
-
-Route
-
-TrainStatus
-
-NetworkZone
+- Train  
+- Station  
+- Route  
+- TrainStatus  
+- NetworkZone  
 
 Views:
-
-HomeView
-
-TrainTrackerView
-
-ScheduleView
-
-StationView
-
-NetworkAlertView
+- HomeView  
+- TrainTrackerView  
+- ScheduleView  
+- StationView  
+- NetworkAlertView  
 
 Templates:
+- home.html  
+- tracker.html  
+- schedule.html  
+- station.html  
+- alert.html  
 
-home.html
+---
 
-tracker.html
-
-schedule.html
-
-station.html
-
-alert.html
-
-User App
+### User App
 
 Models:
-
-UserProfile
-
-SavedTrain
-
-SearchHistory
+- UserProfile  
+- SavedTrain  
+- SearchHistory  
 
 Views:
+- ProfileView  
+- LoginView  
+- RegisterView  
 
-ProfileView
+---
 
-LoginView
-
-RegisterView
-
-4.2 Project Structure
+## Project Structure
 train_project/
 │
 ├── manage.py
@@ -280,188 +249,101 @@ train_project/
 ├── requirements.txt
 │
 ├── train_project/
-│   ├── settings.py
-│   ├── urls.py
-│   ├── wsgi.py
-│   └── asgi.py
+│ ├── settings.py
+│ ├── urls.py
+│ ├── wsgi.py
+│ └── asgi.py
 │
 ├── tracker/
-│   ├── models.py
-│   ├── views.py
-│   ├── urls.py
-│   └── forms.py
+│ ├── models.py
+│ ├── views.py
+│ ├── urls.py
+│ └── forms.py
 │
 ├── templates/
 ├── static/
-5. PHYSICAL ARCHITECTURE
-5.1 Development Environment
 
-Local machine
+---
 
-Django dev server
+# 5. PHYSICAL ARCHITECTURE
 
-SQLite
+## Development Environment
 
-GitHub
+- Local machine  
+- Django dev server  
+- SQLite  
+- GitHub  
 
 Run:
 
-python manage.py runserver
-5.2 Production Environment
 
-Users
-↓
-Nginx
-↓
-Gunicorn
-↓
-Django
-↓
-SQLite / PostgreSQL
+---
 
-Ensures:
+## Production Environment
 
-Security
+Users  
+↓  
+Nginx  
+↓  
+Gunicorn  
+↓  
+Django  
+↓  
+SQLite / PostgreSQL  
 
-Performance
+---
 
-Production-grade setup
+## Hardware Requirements
 
-5.3 Hardware Requirements
-Component	Development	Production
-OS	Windows/macOS/Linux	Ubuntu 22.04
-RAM	4 GB	8 GB
-Storage	1 GB	10 GB
-Server	Dev Server	Nginx + Gunicorn
-6. DATA ARCHITECTURE
-6.1 Database Configuration
+| Component | Development | Production |
+|------------|-------------|------------|
+| OS | Windows/macOS/Linux | Ubuntu 22.04 |
+| RAM | 4 GB | 8 GB |
+| Storage | 1 GB | 10 GB |
+| Server | Dev Server | Nginx + Gunicorn |
+
+---
+
+# 6. DATA ARCHITECTURE
+
+## Database Configuration
+
+```python
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-6.2 ERD (Logical)
+```
+ERD (Logical)
+
 TRAIN ───< ROUTE >─── STATION
-   │
-   ▼
+│
+▼
 TRAIN_STATUS
-   │
-   ▼
+│
+▼
 NETWORK_ZONE
-6.3 Tables
-trains
-
-id
-
-train_number
-
-name
-
-train_type
-
-source_station_id
-
-dest_station_id
-
-current_status
-
-stations
-
-id
-
-station_code
-
-name
-
-latitude
-
-longitude
-
-zone
-
-platform_count
-
-routes
-
-train_id
-
-station_id
-
-arrival_time
-
-departure_time
-
-sequence_order
-
-distance_km
-
-train_status
-
-train_id
-
-current_lat
-
-current_lng
-
-delay_minutes
-
-updated_at
-
-network_zones
-
-zone_name
-
-start_km
-
-end_km
-
-signal_strength
-
-connectivity
-
-alert_message
 
 7. APPLICATION ARCHITECTURE
-7.1 URL Structure
-URL	View
-/	HomeView
-/train/<id>/	TrainTrackerView
-/schedule/	ScheduleView
-/station/<code>/	StationDetailView
-/alerts/	NetworkAlertView
-/api/location/<id>/	LocationAPIView
-7.2 Key Views
-HomeView
+URL Structure
 
-Search trains
+/
 
-Show popular trains
+/train/<id>/
 
-TrainTrackerView
+/schedule/
 
-Live map
+/station/<code>/
 
-Delay info
+/alerts/
 
-Journey progress
-
-NetworkAlertView
-
-Detect low-network zones
-
-Trigger offline caching
+/api/location/<id>/
 
 8. NETWORK ALERT SYSTEM
-Architecture
 
-Zone Database
-
-Detection Engine
-
-Alert Manager
-
-Workflow
+Workflow:
 
 Get train position
 
@@ -477,77 +359,29 @@ Cache data
 
 Enable offline mode
 
-Offline Mode
-
-Online:
-
-Browser → Django → DB → Response
-
-Offline:
+Offline Mode:
 
 Service Worker → Cached Data → Display
 
-Cached Data:
-
-Current location
-
-Next 5 stations
-
-Delay status
-
-Platform info
-
 9. INTERFACE DESIGN
-User Flow
 
-Home
-→ Search
-→ Train Tracker
-→ Map
-→ Network Alert
+User Flow:
 
-Home Page Layout
-
-Navbar
-
-Search bar
-
-Popular trains
-
-Clean Tailwind UI
-
-Train Tracker Layout
-
-Journey timeline
-
-Live map
-
-Delay status
-
-Network alert banner
+Home → Search → Train Tracker → Map → Network Alert
 
 10. SECURITY ARCHITECTURE
-Django Security
 
-CSRF protection
+CSRF Protection
 
-XSS protection
+XSS Protection
 
-SQL injection prevention
-
-Clickjacking protection
-
-Production Security
+SQL Injection Prevention
 
 HTTPS
 
-SSL/TLS
-
-Secure cookies
+Secure Cookies
 
 HSTS
-
-Nginx reverse proxy
 
 11. REQUIREMENTS TRACEABILITY
 ID	Requirement	Component
@@ -562,7 +396,7 @@ REQ-008	Delay status	TrainStatus
 REQ-009	Responsive UI	Tailwind
 REQ-010	Station details	StationDetailView
 12. EXTERNAL API & LIVE SIMULATION ARCHITECTURE
-12.1 RapidAPI Integration Flow
+RapidAPI Flow
 
 RapidAPI
 ↓
@@ -574,29 +408,15 @@ Cache + Timeline Logic
 ↓
 Final API Response
 
-12.2 Heuristic Network Prediction
+ETA Formula
 
-Assumption:
-
-Long distance between stations → Higher chance of low connectivity
-
-Used because:
-
-No telecom API available
-
-Logical & interview-safe
-
-12.3 ETA Formula
 ETA = Current_Time + (Distance_Remaining / Average_Speed)
-12.4 Train Movement Interpolation
-Current_Position =
-Start_Location + (Speed × Time_Elapsed)
 
-Creates smooth live animation.
+Interpolation Formula
 
-12.5 High Concurrency (1000+ Users)
+Current_Position = Start_Location + (Speed × Time_Elapsed)
 
-Strategy:
+High Concurrency Strategy
 
 Intelligent caching
 
@@ -604,33 +424,9 @@ Avoid repeated API calls
 
 Under 2 second response
 
-12.6 Offline Backup
-
-When near zone:
-
-Pre-cache data
-
-Store 45-minute prediction
-
-Enable Service Worker
-
-Ensures:
-
-No UI freeze
-
-No blank screen
-
-12.7 Voice Assistant
+Voice Assistant Flow
 
 Speech → Text → NLP Intent → Autofill → API Call
-
-Supports:
-
-Hands-free search
-
-Accessibility
-
-Smart interaction
 
 ✅ System Strength Summary
 
@@ -640,9 +436,9 @@ Heuristic network prediction
 
 1000+ user scalability
 
-Offline backup (45 min)
+Offline backup (45 min validity)
 
-Smooth map interpolation
+Smooth interpolation
 
 Voice-enabled search
 
